@@ -17,7 +17,9 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setPixelRatio(
+    Math.min(window.devicePixelRatio,2)
+);
 renderer.setClearColor(0x000000, 0);
 
 document.getElementById("scene").appendChild(renderer.domElement);
@@ -95,7 +97,25 @@ const material = new THREE.PointsMaterial({
 
 const heart = new THREE.Points(geometry,material);
 
-heart.scale.set(1.2,1.2,1.2);
+function ajustarEscala(){
+
+    if(window.innerWidth < 600){
+
+        heart.scale.set(0.85,0.85,0.85);
+
+    }else if(window.innerWidth < 900){
+
+        heart.scale.set(1,1,1);
+
+    }else{
+
+        heart.scale.set(1.2,1.2,1.2);
+
+    }
+
+}
+
+ajustarEscala();
 
 scene.add(heart);
 
@@ -241,3 +261,6 @@ const starField = new THREE.Points(
 );
 
 scene.add(starField);
+
+
+
